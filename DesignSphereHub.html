@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DesignSphere-Hub - Premium UI/UX Resources</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%); 
+            color: #e0e0e0; 
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Navigation Bar */
+        nav { 
+            background: rgba(18, 18, 18, 0.9); 
+            backdrop-filter: blur(10px); 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            z-index: 1000; 
+            padding: 1rem 0; 
+            border-bottom: 1px solid #333;
+        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #00D4FF; text-shadow: 0 0 10px #00D4FF; }
+        .search-filter { display: flex; gap: 1rem; align-items: center; flex: 1; max-width: 600px; margin: 0 2rem; }
+        input[type="search"] { 
+            flex: 1; padding: 0.75rem; border: 1px solid #333; border-radius: 25px; background: #2a2a2a; color: #e0e0e0; 
+            transition: all 0.3s ease; 
+        }
+        input[type="search"]:focus { outline: none; border-color: #00D4FF; box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); }
+        select { padding: 0.75rem; border: 1px solid #333; border-radius: 25px; background: #2a2a2a; color: #e0e0e0; }
+
+        /* Hero Section with Carousel */
+        .hero { 
+            text-align: center; 
+            padding: 120px 0 60px; 
+            position: relative; 
+            overflow: hidden;
+        }
+        .hero h1 { 
+            font-size: 3rem; font-weight: 700; margin-bottom: 1rem; 
+            background: linear-gradient(45deg, #00D4FF, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 1.2rem; opacity: 0.8; margin-bottom: 2rem; }
+        .carousel { 
+            display: flex; overflow: hidden; position: relative; height: 300px; margin: 2rem 0; 
+            border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .carousel-slide { 
+            min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; 
+            background: linear-gradient(45deg, #00D4FF, #007BFF); color: white; font-size: 1.5rem; font-weight: 600;
+            transition: transform 0.5s ease; 
+        }
+        .carousel-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 1rem; cursor: pointer; font-size: 1.5rem; }
+        .carousel-nav.prev { left: 10px; } .carousel-nav.next { right: 10px; }
+
+        /* Main Resources Grid */
+        .resources { padding: 60px 0; }
+        .resources h2 { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: #fff; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .card { 
+            background: linear-gradient(145deg, #1e1e1e, #2a2a2a); 
+            border-radius: 20px; 
+            overflow: hidden; 
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            position: relative; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: translateY(0);
+        }
+        .card:hover { 
+            transform: translateY(-10px) scale(1.02); 
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2); 
+            border: 1px solid #00D4FF;
+        }
+        .card-preview { 
+            height: 200px; background: #333; display: flex; align-items: center; justify-content: center; 
+            font-size: 4rem; color: #00D4FF; transition: all 0.3s ease;
+        }
+        .card:hover .card-preview { transform: scale(1.1); filter: drop-shadow(0 0 10px #00D4FF); }
+        .card-content { padding: 1.5rem; }
+        .category { 
+            display: inline-block; padding: 0.5rem 1rem; background: #00D4FF; color: #121212; 
+            border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;
+        }
+        .card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #fff; }
+        .card p { opacity: 0.7; margin-bottom: 1rem; }
+        .download-btn { 
+            background: linear-gradient(45deg, #00D4FF, #007BFF); 
+            color: white; border: none; padding: 0.75rem 1.5rem; 
+            border-radius: 25px; cursor: pointer; font-weight: 600; 
+            transition: all 0.3s ease; width: 100%;
+        }
+        .download-btn:hover { 
+            transform: scale(1.05); box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4); 
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+
+        /* Subtle Background Particles (Futuristic Touch) */
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+        .particle { position: absolute; width: 2px; height: 2px; background: #00D4FF; border-radius: 50%; animation: float 6s infinite linear; }
+        @keyframes float { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(-100px) rotate(360deg); opacity: 0; } }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .search-filter { flex-direction: column; margin: 0 1rem; }
+            .grid { grid-template-columns: 1fr; gap: 1rem; }
+            .carousel { height: 200px; }
+        }
+        @media (max-width: 480px) {
+            nav .container { flex-direction: column; gap: 1rem; }
+            .hero { padding: 100px 0 40px; }
+        }
+
+        /* Hide filtered cards */
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">DesignSphere-Hub</div>
+            <div class="search-filter">
+                <input type="search" id="searchInput" placeholder="Search resources...">
+                <select id="filterSelect">
+                    <option value="all">All Categories</option>
+                    <option value="template">UI Templates</option>
+                    <option value="png">PNG Assets</option>
+                    <option value="font">Fonts</option>
+                    <option value="icon">Icons</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero with Carousel -->
+    <section class="hero">
+        <div class="container">
+            <h1>Welcome to DesignSphere-Hub</h1>
+            <p>Premium UI/UX resources for modern designers. Explore, preview, and download with ease.</p>
+            <div class="carousel" id="carousel">
+                <div class="carousel-slide">Featured: Neon UI Kit</div>
+                <div class="carousel-slide">Featured: Icon Pack Pro</div>
+                <div class="carousel-slide">Featured: Gradient Fonts</div>
+            </div>
+            <button class="carousel-nav prev" onclick="moveCarousel(-1)">‹</button>
+            <button class="carousel-nav next" onclick="moveCarousel(1)">›</button>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="resources">
+        <div class="container">
+            <h2>Explore Resources</h2>
+            <div class="grid" id="resourcesGrid">
+                <!-- Resources will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Sample Resources Data (Replace with real data/API)
+        const resources = [
+            { id: 1, title: "Neon Dashboard Template", category: "template", preview: "📊", desc: "Modern dark-themed dashboard UI.", glink: "https://drive.google.com/file/d/placeholder1/view" },
+            { id: 2, title: "Abstract PNG Backgrounds", category: "png", preview: "🖼️", desc: "High-res abstract PNGs for web.", glink: "https://drive.google.com/file/d/placeholder2/view" },
+            { id: 3, title: "Futuristic Font Pack", category: "font", preview: "A", desc: "10 premium fonts with variable weights.", glink: "https://drive.google.com/file/d/placeholder3/view" },
+            { id: 4, title: "Icon Set: Essentials", category: "icon", preview: "⭐", desc: "200+ SVG icons for UI.", glink: "https://drive.google.com/drive/folders/12cwbkyg5CCF4wFVOG9JqIcg5rOEIu6S7?usp=sharing" },
+            { id: 5, title: "Mobile App Template", category: "template", preview: "📱", desc: "Responsive mobile UI kit.", glink: "https://drive.google.com/file/d/placeholder5/view" },
+            { id: 6, title: "Gradient PNG Assets", category: "png", preview: "🌈", desc: "Vibrant gradients for designs.", glink: "https://drive.google.com/file/d/placeholder6/view" },
+            { id: 7, title: "Minimalist Fonts", category: "font", preview: "M", desc: "Clean sans-serif collection.", glink: "https://drive.google.com/file/d/placeholder7/view" },
+            { id: 8, title: "Social Media Icons", category: "icon", preview: "📸", desc: "Custom icons for social platforms.", glink: "https://drive.google.com/file/d/placeholder8/view" },
+            { id: 9, title: "E-commerce Template", category: "template", preview: "🛒", desc: "Full e-comm UI template.", glink: "https://drive.google.com/file/d/placeholder9/view" },
+            { id: 10, title: "Texture PNG Pack", category: "png", preview: "🧱", desc: "Realistic textures for mockups.", glink: "https://drive.google.com/file/d/placeholder10/view" }
+        ];
+
+        // Render Resources
+        function renderResources(data = resources) {
+            const grid = document.getElementById('resourcesGrid');
+            grid.innerHTML = data.map(item => `
+                <div class="card" data-category="${item.category}" data-title="${item.title.toLowerCase()}">
+                    <div class="card-preview">${item.preview}</div>
+                    <div class="card-content">
+                        <span class="category">${item.category.toUpperCase()}</span>
+                        <h3>${item.title}</h3>
+                        <p>${item.desc}</p>
+                        <a href="${item.glink}" target="_blank" class="download-btn">Download via Drive</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search & Filter
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const category = document.getElementById('filterSelect').value;
+            filterResources(query, category);
+        });
+        document.getElementById('filterSelect').addEventListener('change', (e) => {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            filterResources(query, e.target.value);
+        });
+        function filterResources(query, category) {
+            let filtered = resources.filter(item => 
+                item.title.toLowerCase().includes(query) && 
+                (category === 'all' || item.category === category)
+            );
+            renderResources(filtered);
+        }
+
+        // Carousel Functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        function moveCarousel(direction) {
+            currentSlide += direction;
+            if (currentSlide >= slides.length) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+            document.getElementById('carousel').style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+        setInterval(() => moveCarousel(1), 5000); // Auto-slide every 5s
+
+        // Particles Animation
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        // Initialize
+        renderResources();
+        createParticles();
+    </script>
+</body>
+</html>
